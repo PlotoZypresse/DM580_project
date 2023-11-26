@@ -25,26 +25,38 @@ fractal2 = ("FX", rules2, let m 'F' = Forward; m 'L' = LeftTurn 90; m 'R' = Righ
 
 -- go from depth n to depth n+1
 apply :: State -> [Rule] -> State
-apply state rules = concatMap applyRule state
+apply [] _ = []  -- If the state is empty, no rules can be applied
+apply (x:xs) rules = applyRule x ++ apply xs rules
   where
     applyRule :: Char -> State
-    applyRule char = case findRule char rules of
-      Just (Rule _ replacement) -> replacement
-      Nothing                   -> [char]
+    applyRule c = case findRule c rules of
+                    Just (Rule _ newState) -> newState
+                    Nothing                -> [c]
 
     findRule :: Char -> [Rule] -> Maybe Rule
     findRule _ [] = Nothing
-    findRule char (rule@(Rule lhs _):rest)
-      | char == lhs = Just rule
-      | otherwise   = findRule char rest
+    findRule c (r:rs)
+      | c == ruleChar r = Just r
+      | otherwise        = findRule c rs
+
+    ruleChar :: Rule -> Char
+    ruleChar (Rule c _) = c
+
 
 -- expand to target depth
 expand :: State -> [Rule] -> Int -> State
-expand = error "Task 2"
+expand state rules 0 = state  -- base case: depth is 0, return the original state
+expand state rules depth = expand (apply state rules) rules (depth - 1)
 
 -- convert fractal into sequence of turtle graphics commands
 process :: Fractal -> [Command]
-process = error "Task 3"
+process (initialState, rules, commandMapping, targetDepth, initialLength) =
+  map commandMapping $ applyN targetDepth initialState rules
+
+-- Apply the rules n times
+applyN :: Int -> State -> [Rule] -> State
+applyN 0 state _ = state
+applyN n state rules = applyN (n - 1) (apply state rules) rules
 
 -- helper function to go from two floating point values to a pair of integers
 toPoint :: Double -> Double -> Point
@@ -117,4 +129,4 @@ drawFdl fileName = do
 
 -- main function that draws the snowflake fractal
 main :: IO ()
-main = drawFdl "snowflake.fdl"
+main = drawFdl "examples/fern.fdl"

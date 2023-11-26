@@ -1,3 +1,7 @@
+import Data.Char (toLower)
+import Data.Char (toUpper)
+import CommonWords (commonWords)
+
 song n = if n == 0 then ""
     else song (n-1) ++ "\n" ++ verse n
 
@@ -27,3 +31,10 @@ numbers = ["Two", "Three", "Four", "Five", "Six",
 
 numbs   = ["two", "three", "four", "five", "six",
                "seven", "eight"]
+
+
+modernise :: String -> String
+modernise = unwords . map capitalise . words
+
+capitalise :: Word -> Word
+capitalise xs = [toUpper (head xs)]++ tail xs
