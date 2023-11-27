@@ -36,7 +36,7 @@ replace (Rule rc rs:xs) char = if rc == char
 -- expand to target depth
 expand :: State -> [Rule] -> Int -> State
 expand state rule 0 = state
-expand state rule d = expand (apply state rule) rule(d-1)
+expand state rule d = expand (apply state rule) rule (d-1)
 
 -- convert fractal into sequence of turtle graphics commands
 process :: Fractal -> [Command]
