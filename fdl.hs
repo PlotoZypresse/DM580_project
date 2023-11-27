@@ -25,24 +25,14 @@ fractal2 = ("FX", rules2, let m 'F' = Forward; m 'L' = LeftTurn 90; m 'R' = Righ
 
 -- go from depth n to depth n+1
 apply :: State -> [Rule] -> State
-apply [] _ = []  -- If the state is empty, no rules can be applied
-apply (x:xs) rules = applyRule x ++ apply xs rules
-  where
-    applyRule :: Char -> State
-    applyRule c = case findRule c rules of
-                    Just (Rule _ newState) -> newState
-                    Nothing                -> [c]
+apply state rule = concatMap (replace rule) state  
 
-    findRule :: Char -> [Rule] -> Maybe Rule
-    findRule _ [] = Nothing
-    findRule c (r:rs)
-      | c == ruleChar r = Just r
-      | otherwise        = findRule c rs
-
-    ruleChar :: Rule -> Char
-    ruleChar (Rule c _) = c
-
-
+replace :: [Rule] -> Char -> State
+replace [] c = [c]
+replace (Rule rc rs:xs) char = if rc == char
+    then rs
+    else replace xs char
+ 
 -- expand to target depth
 expand :: State -> [Rule] -> Int -> State
 expand state rules 0 = state  -- base case: depth is 0, return the original state

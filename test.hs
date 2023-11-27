@@ -1,6 +1,6 @@
 import Data.Char (toLower)
 import Data.Char (toUpper)
-import CommonWords (commonWords)
+
 
 song n = if n == 0 then ""
     else song (n-1) ++ "\n" ++ verse n
