@@ -6,8 +6,8 @@ Original project and author: https://github.com/peter-sk/fdl
 
 The project and its tasks are described in the file `project.pdf`
 ## Installation
-There are scripts for Linux (assuming Ubuntu/Debian), Mac, and Windows (assuming Windows Subsystem for Linux) in the `scripts` directory. These should install the Glasgow Haskell Compiler and the Haskell Graphics Library needed for this project.
-If you are running Windows, your fellow students and I would appreciate the contribution of `windows.bat` script with the necessary commands.
+There are scripts for Linux (assuming Ubuntu/Debian), Mac, and Windows (assuming Windows Subsystem for Linux) in the `scripts` directory. These should install the Glasgow Haskell Compiler and the Haskell Graphics Library needed for this project. Doesnt alway work that good
+
 ## Running
 For interactive use:
 ```
