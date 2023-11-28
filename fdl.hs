@@ -46,8 +46,8 @@ process (state, rule, charToCom, depth, length) =
 
 charToCom :: Char -> Int -> Command
 charToCom 'F' _ = Forward 
-charToCom 'L' length = LeftTurn length
-charToCom 'R' length = RightTurn length
+charToCom 'L' turn = LeftTurn turn
+charToCom 'R' turn = RightTurn turn
 charToCom  _ _ = Nop
 
 -- helper function to go from two floating point values to a pair of integers
@@ -121,4 +121,4 @@ drawFdl fileName = do
 
 -- main function that draws the snowflake fractal
 main :: IO ()
-main = drawFdl "examples/tree.fdl"
+main = drawFdl "examples/snowflake.fdl"
