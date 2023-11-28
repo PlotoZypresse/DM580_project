@@ -40,13 +40,15 @@ expand state rule d = expand (apply state rule) rule (d-1)
 
 -- convert fractal into sequence of turtle graphics commands
 process :: Fractal -> [Command]
-process (initialState, rules, commandMapping, targetDepth, initialLength) =
-  map commandMapping $ applyN targetDepth initialState rules
+process (state, rule, charToCom, depth, length) =  
+    let finalState = expand state rule depth
+    in map charToCom finalState
 
--- Apply the rules n times
-applyN :: Int -> State -> [Rule] -> State
-applyN 0 state _ = state
-applyN n state rules = applyN (n - 1) (apply state rules) rules
+charToCom :: Char -> Int -> Command
+charToCom 'F' _ = Forward 
+charToCom 'L' length = LeftTurn length
+charToCom 'R' length = RightTurn length
+charToCom  _ _ = Nop
 
 -- helper function to go from two floating point values to a pair of integers
 toPoint :: Double -> Double -> Point
@@ -119,4 +121,4 @@ drawFdl fileName = do
 
 -- main function that draws the snowflake fractal
 main :: IO ()
-main = drawFdl "examples/fern.fdl"
+main = drawFdl "examples/tree.fdl"
