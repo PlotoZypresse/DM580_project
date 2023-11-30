@@ -1,0 +1,13 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Specification}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Task 1: Applying Rules to a State}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Task 2: Going to Target Depth}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Task 3: Processing a Fractal}{2}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Design}{2}{section.3}%
+\contentsline {section}{\numberline {4}Implementation}{2}{section.4}%
+\contentsline {section}{\numberline {5}Testing}{2}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{2}{section.6}%
+\contentsline {section}{\numberline {7}Appendix}{2}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Code}{2}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Fractals}{2}{subsection.7.2}%
