@@ -122,4 +122,4 @@ drawFdl fileName = do
 
 -- main function that draws the snowflake fractal
 main :: IO ()
-main = drawFdl "examples/sierpinski.fdl"
+main = drawFdl "examples/tree.fdl"
