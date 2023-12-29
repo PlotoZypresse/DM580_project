@@ -44,13 +44,6 @@ process (state, rule, charToCom, depth, scale) =
     let finalState = expand state rule depth
     in map charToCom finalState
 
-charToCom :: Char -> Int -> Command
-charToCom 'F' _ = Forward 
-charToCom 'L' turn = LeftTurn turn
-charToCom 'R' turn = RightTurn turn
-charToCom 'B' _ = Backward
-charToCom  _ _ = Nop
-
 -- helper function to go from two floating point values to a pair of integers
 toPoint :: Double -> Double -> Point
 toPoint x y = (round x, round y)
@@ -122,4 +115,4 @@ drawFdl fileName = do
 
 -- main function that draws the snowflake fractal
 main :: IO ()
-main = drawFdl "examples/tree.fdl"
+main = drawFdl "examples/dragon.fdl"

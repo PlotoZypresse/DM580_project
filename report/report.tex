@@ -60,7 +60,7 @@ Task 1 is solved by implementing the apply function. The apply function takes a 
 Task 2 is solved by implementing the function expand. The expand function takes a state, a list of rules, a target depth in form of an integer and returns a state. The function will apply the apply function to the state until reaching the target depth and then return the result state. An example could be applying these rules: ’X’ "XRYF", ’Y’ "FXLY" to the state "FX" with depth two. Depth one is achieved by applying apply once, giving the string "FXRYF". Depth two is achieved by applying apply again on the new string. Resulting in the new string "FXRYFRFXLYF". This can be repeated until the target depth is reached.
 
 \subsection{Task 3: Processing a Fractal}
-Task 3 is solved by implementing the function process. The process function takes a fractal and produces a list of commands to draw the fractal. This is achieved by using the expand function to get the state at target depth. Then the turtle graphics commands are mapped to the state. The commands are produced by the charToCom function which converts a character to a turtle command. Testing the function with the main command in GHCI should produce a white on black snowflake. A picture of the produced snowflake and all other fractals is included in the appendix (section \ref{Fractals}).
+Task 3 is solved by implementing the function process. The process function takes a fractal and produces a list of commands to draw the fractal. This is achieved by using the expand function to get the state at target depth. Then the turtle graphics commands are mapped to the state. The commands are produced by the Char$\rightarrow$Command function, which will be used with the name charToCom in the implementation, which converts a character to a turtle command. Testing the function with the main command in GHCI should produce a white on black snowflake. A picture of the produced snowflake and all other fractals is included in the appendix (section \ref{Fractals}).
 
 \section{Design}
 We have some predefined data types that are used by the functions apply, expand and process.
@@ -126,20 +126,14 @@ process (state, rule, charToCom, depth, scale) =
     let finalState = expand state rule depth
     in map charToCom finalState
 
-charToCom :: Char -> Int -> Command
-charToCom 'F' _ = Forward 
-charToCom 'L' turn = LeftTurn turn
-charToCom 'R' turn = RightTurn turn
-charToCom 'B' _ = Backward
-charToCom  _ _ = Nop
 \end{lstlisting}
-The process function takes a fractal as input. It translates the fractal to turtle graphics commands so the fractal can be drawn. We obtain the final state by using the expand function with the desired depth. Then we map the helper function, charToCom onto the final state to get the commands. The function charToCom uses pattern matching to decide which command should be chosen based on the input character. For example if the character is F the function chooses Forward. If a character doesn't match the predefined commands it gets matched with Nop(no operation). This is done by the two underscores. Which represent any other input that is not defined.
+The process function takes a fractal as input. It translates the fractal to turtle graphics commands so the fractal can be drawn. We obtain the final state by using the expand function with the desired depth. Then we map the function, charToCom onto the final state to get the commands. The function charToCom uses pattern matching to decide which command should be chosen based on the input character. For example if the character is F the function chooses Forward. If a character doesn't match the predefined commands it gets matched with Nop(no operation). 
 
 \section{Testing}
 The implementation was tested by testing the functions apply, expand and process. The apply function was tested by this command in GHCI: "apply "FXRYF" [Rule ’X’ "XRYF", Rule ’Y’ "FXLY"]", and then checking if the function returned the desired out put. Which in this case would be "FXRYFRFXLYF". The expand function was tested in a similar way by using this command: "expand "FX" [Rule ’X’ "XRYF", Rule ’Y’ "FXLY"] 2". The desired output in this case would be "FXRYFRFXLYF". The function process was tested by drawing the different fractals and checking if the output is as desired. This also test apply and expand as these functions, have to be implemented the right way to draw the desired fractals. By looking at the fractals we can see if the implementation is correct. All of the example fractals are provided in the appendix (section \ref{Fractals}).
 
 \section{Conclusion}
-The three main tasks of implementing the functions apply, expand and process where implemented successfully. The apply function was successfully implemented to apply rules to a state. This was confirmed by testing the function. The expand function was successfully implemented, with the help of the apply function, to reach the targeted depth. this was done by recursively applying the apply function until the desired depth is reached. The correctness of the implementation was also confirmed by testing. The process function that translates a final state into turtle graphics commands was also successfully implemented with the helper function charToCom. The implementation was also shown to be correct by the program drawing the correct fractals. The three implemented functions thus also work together. The current implementation meets the project requirements but future improvements may include optimizing the code or implementing the support for colours and line width to make the fractals look even better.
+The three main tasks of implementing the functions apply, expand and process where implemented successfully. The apply function was successfully implemented to apply rules to a state. This was confirmed by testing the function. The expand function was successfully implemented, with the help of the apply function, to reach the targeted depth. This was done by recursively applying the apply function until the desired depth is reached. The correctness of the implementation was also confirmed by testing. The process function that translates a final state into turtle graphics commands was also successfully implemented. The implementation was also shown to be correct by the program drawing the correct fractals. The three implemented functions thus also work together. The current implementation meets the project requirements but future improvements may include optimizing the code or implementing the support for colours and line width to make the fractals look even better.
 
 
 \section{Appendix}
@@ -203,13 +197,6 @@ process :: Fractal -> [Command]
 process (state, rule, charToCom, depth, scale) =  
     let finalState = expand state rule depth
     in map charToCom finalState
-
-charToCom :: Char -> Int -> Command
-charToCom 'F' _ = Forward 
-charToCom 'L' turn = LeftTurn turn
-charToCom 'R' turn = RightTurn turn
-charToCom 'B' _ = Backward
-charToCom  _ _ = Nop
 
 -- helper function to go from two floating point values to a pair of integers
 toPoint :: Double -> Double -> Point
@@ -282,6 +269,6 @@ drawFdl fileName = do
 
 -- main function that draws the snowflake fractal
 main :: IO ()
-main = drawFdl "examples/snowflake.fdl"
+main = drawFdl "examples/dragon.fdl"
 \end{lstlisting}
 \end{document}
